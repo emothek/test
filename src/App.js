@@ -2,7 +2,10 @@ import React, { useState } from 'react';
 import { useFetch } from './hooks';
 import './App.css';
 
-const App = () => {
+import { connect } from 'react-redux'
+import { queryKeyword } from './reducers'
+
+const App = (props) => {
 	const [query, setQuery] = useState('');
 
 	const url = query && `https://hn.algolia.com/api/v1/search?query=${query}`;
@@ -15,7 +18,7 @@ const App = () => {
 		const query = e.target.search.value;
 		if (query) {
 			setQuery(query.trim());
-			e.target.search.value = '';
+			props.queryKeyword(query.trim());
 		}
 	};
 
@@ -59,4 +62,14 @@ const App = () => {
 	);
 };
 
-export default App;
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+	  // dispatching actions returned by action creators
+	  queryKeyword: (keyword) => dispatch(queryKeyword(keyword)),
+	}
+  }
+
+export default connect(
+	null,
+	mapDispatchToProps)(App);
