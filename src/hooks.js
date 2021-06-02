@@ -6,8 +6,8 @@ import jsonpack from 'jsonpack'
 	const getValue = (key) => {
 	  try {
 		let item = localStorage.getItem(key); 
-		item = jsonpack.unpack(JSON.parse(item))
-		return item && item
+		item = item && jsonpack.unpack(JSON.parse(item))
+		return item
 	  } catch (error) {
  
 		console.log(error);

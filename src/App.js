@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useFetch, useLocalStorage } from './hooks';
+import { useFetch } from './hooks';
 import './App.css';
 
 const App = () => {
@@ -46,7 +46,7 @@ const App = () => {
 						{posts && posts.length === 0 && <div> Pas de posts :( </div>}
 						{posts && posts.map((article) => (
 							<div className="article" key={article.objectID}>
-								<a target="_blank" href={article.url} rel="noopener noreferrer">
+								<a target="_blank" href={article.url}>
 									{article.title}
 								</a>{' '}
 								by {article.author}
