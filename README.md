@@ -1,44 +1,16 @@
-# Use Fetch Hook
+# Test first commit by Mokhtar Megherbi
 
-TLDR; This repo shows how to build a custom hook to fetch and cache data!
+Redux store is still to be implemented, 
 
-Here's [a deployed version](https://use-fetch-hook-example.netlify.app) of this example on Netlify!
+The hook should store fetched data in a global Redux store and manage gracefully the case where no Provider is defined.
 
-I wrote a piece about it on [Smashing Magazine](https://www.smashingmagazine.com/2020/07/custom-react-hook-fetch-cache-data/).
+The hook should use fetch (and not axios) and allows to pass a baseUrl (prefix) of the API so it won't be required for each request.
 
-## Contents
+Data should also be stored in localstorage for cache purpose. When page is reloaded, data should be read instantly from localStorage while making the request in the background to update the cache.
 
-- [Installation](#installation)
-- [Run locally](#run-locally)
+Compress data before storing it in localstorage using frontend compression technology (eg. LZCompress)
 
-### Installation
+When localStorage is out of space, delete the first item stored in localStorage that is bigger than the space needed to store the new item.
 
-Clone repo:
-
-SSH:
-
-```sh
-git clone git@github.com:ooade/use-fetch-hook.git
-cd use-fetch-hook
-```
-
-or
-
-HTTPS:
-
-```sh
-git clone https://github.com/ooade/use-fetch-hook.git
-cd use-fetch-hook
-```
-
-### Run locally
-
-Start a live-reload development server:
-
-```sh
-yarn start
-```
-
----
-
-If you have any question, feel free to [reach out to me](https://twitter.com/_ooade)!
+Add a way to protect certain entries from being cleaned.
+ 
