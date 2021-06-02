@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useFetch } from './hooks';
+import { useFetch, useLocalStorage } from './hooks';
 import './App.css';
 
 const App = () => {
@@ -7,44 +7,44 @@ const App = () => {
 
 	const url = query && `https://hn.algolia.com/api/v1/search?query=${query}`;
 
-	const { status, data, error } = useFetch(url);
+	const { status, data, error } = useFetch(url, query);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
 		const query = e.target.search.value;
 		if (query) {
-			setQuery(query);
+			setQuery(query.trim());
 			e.target.search.value = '';
 		}
 	};
 
-	const articles = data.hits;
+	const posts = data.hits;
 
 	return (
 		<div className="App">
-			<header> Hackernews Search </header>
+			<header> App test </header>
 			<form className="Form" onSubmit={handleSubmit}>
 				<input
 					type="text"
 					autoFocus
 					autoComplete="off"
 					name="search"
-					placeholder="Search Hackernews"
+					placeholder="..."
 				/>
-				<button> Search </button>
+				<button> Recherche </button>
 			</form>
 			<main>
 				{status === 'idle' && (
-					<div> Let's get started by searching for an article! </div>
+					<div> Rechercher un article de l'API ouvert </div>
 				)}
 				{status === 'error' && <div>{error}</div>}
 				{status === 'fetching' && <div className="loading"></div>}
 				{status === 'fetched' && (
 					<>
-						<div className="query"> Search results for {query} </div>
-						{articles.length === 0 && <div> No articles found! :( </div>}
-						{articles.map((article) => (
+						<div className="query"> Résultat pour {query} </div>
+						{posts && posts.length === 0 && <div> Pas de posts :( </div>}
+						{posts && posts.map((article) => (
 							<div className="article" key={article.objectID}>
 								<a target="_blank" href={article.url} rel="noopener noreferrer">
 									{article.title}
